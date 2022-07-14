@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from .views import BookAuthorMappingViewSet
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('books', BookAuthorMappingViewSet.as_view(), name='book'),
 ]
