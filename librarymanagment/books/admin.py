@@ -3,7 +3,8 @@ from django.contrib import admin
 from .models import (
     Author,
     Book,
-    BookAuthorMapping
+    BookAuthorMapping,
+    UserProfile
 )
 
 # Register your models here.
@@ -36,3 +37,6 @@ class BookAuthorMappingAdmin(BaseModelAdmin):
     search_fields = ('author__author_name', 'book__book_name')
 
 
+@admin.register(UserProfile)
+class UserProfileAdmin(BaseModelAdmin):
+    pass

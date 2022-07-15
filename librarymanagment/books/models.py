@@ -1,5 +1,11 @@
 import uuid
 from django.db import models
+from django.contrib.auth.models import User
+
+from .choices import (
+    UserTypeChoices,
+    USER_CHOICES
+)
 
 # Create your models here.
 
@@ -12,6 +18,14 @@ class BaseModel(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True,)
     updated_at = models.DateTimeField(auto_now_add=True)
+
+
+class UserProfile(BaseModel):
+    UserProfile = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_admin = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.UserProfile.email
 
 
 class Book(BaseModel):

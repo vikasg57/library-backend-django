@@ -4,6 +4,8 @@ from django.shortcuts import render
 
 from .book_handlers import BookHandler
 
+from .user_handler import UserHandler
+
 # Create your views here.
 from django.http import JsonResponse, HttpResponse
 
@@ -15,6 +17,7 @@ class BookAuthorMappingViewSet(APIView):
     def get(self, request, *args, **kwargs):
         data = BookHandler().get_all_books_author_mapping()
         print(data)
+        print(request.user)
         return HttpResponse(json.dumps(data))
 
     def post(self, request, *args, **kwargs):
@@ -44,3 +47,30 @@ class BookAuthorMappingViewSet(APIView):
         return HttpResponse(json.dumps(data))
 
 
+class UserCreateViewSet(APIView):
+
+    def post(self, request, *args, **kwargs):
+        print("vikas")
+        user = request.user
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        email = request.data.get('email')
+        password = request.data.get('password')
+        is_admin = request.data.get('is_admin')
+        data = UserHandler().create_user(first_name, last_name,
+                                         email, password, is_admin)
+        return HttpResponse(json.dumps(data))
+
+
+class LoginViewSet(APIView):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('email')
+        password = request.data.get('password')
+        data = UserHandler().login_user(request, username, password)
+        return HttpResponse(json.dumps(data))
+
+
+class LogoutViewSet(APIView):
+    def post(self, request, *args, **kwargs):
+        data = UserHandler().logout_user(request)
+        return HttpResponse(json.dumps(data))
