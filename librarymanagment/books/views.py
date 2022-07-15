@@ -1,12 +1,11 @@
 import json
 
 from django.http import HttpResponse
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 
 from .book_handlers import BookHandler
 from .user_handler import UserHandler
-
-
-from rest_framework.views import APIView
 
 
 class BookAuthorMappingViewSet(APIView):
@@ -44,6 +43,9 @@ class BookAuthorMappingViewSet(APIView):
 
 
 class UserCreateViewSet(APIView):
+
+    permission_classes = (AllowAny,)
+
     def post(self, request, *args, **kwargs):
         first_name = request.data.get("first_name")
         last_name = request.data.get("last_name")
