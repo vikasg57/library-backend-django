@@ -26,7 +26,7 @@ class BookHandler:
                     BookAuthorMapping.objects.create(book=book, author=author)
             return self.generate_book_author_response(book)
         else:
-            return {"message": "You do not have permission to perform this action"}
+            return self.user_not_have_permission()
 
     def update_books_and_author_map(self, book_name, description, year, book_id, user):
         user_profile = UserProfile.objects.filter(UserProfile=user).first()
@@ -38,7 +38,7 @@ class BookHandler:
             book.save()
             return self.generate_book_author_response(book)
         else:
-            return {"message": "You do not have permission to perform this action"}
+            return self.user_not_have_permission()
 
     def delete_books_and_author_map(self, book_id, user):
         user_profile = UserProfile.objects.filter(UserProfile=user).first()
@@ -48,7 +48,7 @@ class BookHandler:
             book.delete()
             return {"message": "deleted successfully"}
         else:
-            return {"message": "You do not have permission to perform this action"}
+            return self.user_not_have_permission()
 
     def generate_book_author_response(self, book):
         return {
@@ -68,3 +68,8 @@ class BookHandler:
             }
             for book_user_map in book_user_maps
         ]
+
+    def user_not_have_permission(self):
+        return {
+            "message": "You do not have permission to perform this action"
+        }
