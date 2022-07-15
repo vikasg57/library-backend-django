@@ -1,22 +1,18 @@
 import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 
-from .choices import (
-    UserTypeChoices,
-    USER_CHOICES
-)
-
-# Create your models here.
-
 
 class BaseModel(models.Model):
-
     class Meta:
         abstract = True
 
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True,)
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        db_index=True,
+    )
     updated_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -45,10 +41,8 @@ class Author(BaseModel):
 
 
 class BookAuthorMapping(BaseModel):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE,
-                             related_name='book')
-    author = models.ForeignKey(Author, on_delete=models.CASCADE,
-                               related_name='author')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="book")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="author")
 
     def __str__(self):
         return self.book.book_name
