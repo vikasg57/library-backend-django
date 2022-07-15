@@ -15,9 +15,9 @@ from rest_framework.views import APIView
 class BookAuthorMappingViewSet(APIView):
 
     def get(self, request, *args, **kwargs):
-        data = BookHandler().get_all_books_author_mapping()
-        print(data)
         print(request.user)
+        user = request.user
+        data = BookHandler().get_all_books_author_mapping(user)
         return HttpResponse(json.dumps(data))
 
     def post(self, request, *args, **kwargs):
@@ -28,7 +28,7 @@ class BookAuthorMappingViewSet(APIView):
         author_names = request.data.get('authors')
         data = BookHandler().create_books_and_author_map(
             book_name, description,
-            year, author_names)
+            year, author_names, user)
         return HttpResponse(json.dumps(data))
 
     def put(self, request, *args, **kwargs):
@@ -50,8 +50,6 @@ class BookAuthorMappingViewSet(APIView):
 class UserCreateViewSet(APIView):
 
     def post(self, request, *args, **kwargs):
-        print("vikas")
-        user = request.user
         first_name = request.data.get('first_name')
         last_name = request.data.get('last_name')
         email = request.data.get('email')
