@@ -22,27 +22,25 @@ class BookAuthorMappingViewSet(APIView):
         book_name = request.data.get('book_name')
         description = request.data.get('description')
         year = request.data.get('year')
-        author_name = request.data.get('author_name')
+        author_names = request.data.get('authors')
         data = BookHandler().create_books_and_author_map(
             book_name, description,
-            year, author_name)
+            year, author_names)
         return HttpResponse(json.dumps(data))
 
     def put(self, request, *args, **kwargs):
-        book_map_id = request.GET.get('book_map_id')
+        book_id = request.GET.get('book_id')
         book_name = request.data.get('book_name')
         description = request.data.get('description')
         year = request.data.get('year')
-        author_name = request.data.get('author_name')
-        print(book_map_id)
         data = BookHandler().update_books_and_author_map(
             book_name, description,
-            year, author_name, book_map_id)
+            year, book_id)
         return HttpResponse(json.dumps(data))
 
     def delete(self, request, *args, **kwargs):
-        book_map_id = request.GET.get('book_map_id')
-        data = BookHandler().delete_books_and_author_map(book_map_id)
+        book_id = request.GET.get('book_id')
+        data = BookHandler().delete_books_and_author_map(book_id)
         return HttpResponse(json.dumps(data))
 
 
