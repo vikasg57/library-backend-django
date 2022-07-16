@@ -26,7 +26,7 @@ class UserHandler:
             login(request, user)
             return {"massage": "User logged in Successfully"}
         else:
-            return {"message": "user not present"}
+            return {"message": "User not present please sign up first"}
 
     def logout_user(self, request):
         logout(request)

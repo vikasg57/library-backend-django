@@ -46,7 +46,7 @@ class BookHandler:
             book = Book.objects.filter(uuid=book_id).first()
             print(book)
             book.delete()
-            return {"message": "deleted successfully"}
+            return {"message": "book deleted successfully"}
         else:
             return self.user_not_have_permission()
 
