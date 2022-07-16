@@ -34,11 +34,6 @@ Start thr backend server with following command.
 ```
 python manage.py runserver
 ```
-- ### step 5
-Create uploads folder in route directory.
-```
-mkdir uploads
-```
 
 # REST API DOCUMENTATION
 
