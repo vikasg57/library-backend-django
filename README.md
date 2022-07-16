@@ -38,6 +38,11 @@ python manage.py runserver
 # REST API DOCUMENTATION
 
 
+### Admin Panel for the library
+
+![Alt text](/assets/admin-panel.png?raw=true "Optional Title")
+
+
 ## Sign up into the app
 
 ### Request
